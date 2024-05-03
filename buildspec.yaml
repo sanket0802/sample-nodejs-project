@@ -23,7 +23,7 @@ artifacts:
   files:
     - '**/*'
   discard-paths: yes
-  base-directory: 'build'  # Change this according to your build output directory
+  base-directory: '.'  # Change this according to your build output directory
   bucket: 'sanket-artifact-store'
   name: 'node-artifact-${CODEBUILD_BUILD_ID}.zip'  # Optional: format the artifact name
 
