@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+  pre_build:
+    commands:
+      - echo Running pre-build steps...
+  build:
+    commands:
+      - echo Building the Node.js application...
+      - npm start 
+  post_build:
+    commands:
+      - echo Post-build steps...
+      - echo Uploading artifacts to S3...
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
+  base-directory: 'build'  # Change this according to your build output directory
+  bucket: 'sanket-artifact-store'
+  name: 'node-artifact-${CODEBUILD_BUILD_ID}.zip'  # Optional: format the artifact name
+
+cache:
+  paths:
+    - 'node_modules/**/*'
