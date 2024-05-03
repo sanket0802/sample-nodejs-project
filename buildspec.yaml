@@ -18,7 +18,7 @@ phases:
     commands:
       - echo Post-build steps...
       - echo Uploading artifacts to S3...
-      - aws s3 cp ./* s3://san-artifact-store/ --recursive --region us-east-1
+     # - aws s3 cp ./* s3://san-artifact-store/ --recursive --region us-east-1
 
 artifacts:
   files:
