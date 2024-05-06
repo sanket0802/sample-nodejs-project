@@ -15,17 +15,10 @@ pipeline {
       }
     }
     
-    stage('Install Vercel CLI') {
-      steps {
-        script {
-          sh 'npm install -g vercel'
-        }
-      }
-    }
-    
     stage('Deploy to Vercel') {
       steps {
         script {
+          sh 'npm install vercel' // Install Vercel CLI locally
           sh './node_modules/.bin/vercel --token $VERCEL_TOKEN --prod' // Deploy to Vercel using local installation
         }
       }
