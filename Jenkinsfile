@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Install Vercel CLI locally
-                    sh 'npm install -g vercel'
+                    sh 'npm install vercel'
                     
                     // Switch to the specified project
                     sh "vercel switch $PROJECT_NAME --token $VERCEL_TOKEN"
