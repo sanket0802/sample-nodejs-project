@@ -1,49 +1,30 @@
 pipeline {
-    agent any
-    
-    environment {
-        VERCEL_TOKEN = 'NgAG88mWC7dktlzHz1YsnOgI' // Your Vercel token
-        PROJECT_NAME = 'smaple-nodejs-project' // Name of your Vercel project
+  agent any
+  
+  environment {
+    VERCEL_TOKEN = 'NgAG88mWC7dktlzHz1YsnOgI' // Your Vercel token
+    PROJECT_NAME = 'sample-nodejs-project'
+  }
+  
+  stages {
+    stage('Build') {
+      steps {
+        nodejs('Node') {
+          echo 'Building Application.....'
+          sh 'npm install'
+        }
+      }
     }
     
-    stages {
-        stage('Build') {
-            steps {
-                nodejs('Node') {
-                    echo 'Building Application.....'
-                    sh 'npm install'
-                }
-            }
+    stage('Deploy to Vercel') {
+      steps {
+        script {
+          sh 'npm install vercel' // Install Vercel CLI locally
+          sh 'vercel login'
+          sh "vercel --token ${VERCEL_TOKEN} --prod" // Deploy to Vercel using the stored token
+          sh './node_modules/.bin/vercel --token $VERCEL_TOKEN --prod' // Deploy to Vercel using local installation
         }
-        
-        stage('Login to Vercel') {
-            steps {
-                script {
-                    // Install Vercel CLI locally
-                    sh 'npm install vercel'
-                    
-                    // Authenticate with Vercel using the token
-                    sh "vercel login"
-                }
-            }
-        }
-        
-        stage('Select Vercel Project') {
-            steps {
-                script {
-                    // Switch to the specified project
-                    sh "vercel switch $PROJECT_NAME"
-                }
-            }
-        }
-        
-        stage('Deploy to Vercel') {
-            steps {
-                script {
-                    // Deploy to Vercel using local installation
-                    sh 'vercel --prod'
-                }
-            }
-        }
+      }
     }
+  }
 }
