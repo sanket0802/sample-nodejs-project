@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        VERCEL_TOKEN = 'vsbQTs02wPrFsJtwMXRRNSI9' // Your Vercel token
+        VERCEL_TOKEN = 'NgAG88mWC7dktlzHz1YsnOgI' // Your Vercel token
     }
     
     stages {
