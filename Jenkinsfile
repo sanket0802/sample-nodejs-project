@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         VERCEL_TOKEN = 'NgAG88mWC7dktlzHz1YsnOgI' // Your Vercel token
-        PROJECT_NAME = 'sample-nodejs-project' // Name of your Vercel project
+        PROJECT_NAME = 'test-project' // Name of your Vercel project
     }
     
     stages {
@@ -16,14 +16,23 @@ pipeline {
             }
         }
         
-        stage('Deploy to Vercel') {
+        stage('Select Vercel Project') {
             steps {
                 script {
                     // Install Vercel CLI locally
-                    sh 'npm install vercel'
+                    sh 'npm install -g vercel'
                     
+                    // Switch to the specified project
+                    sh "vercel switch $PROJECT_NAME --token $VERCEL_TOKEN"
+                }
+            }
+        }
+        
+        stage('Deploy to Vercel') {
+            steps {
+                script {
                     // Deploy to Vercel using local installation
-                    sh "./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --confirm --project $PROJECT_NAME"
+                    sh 'vercel --prod'
                 }
             }
         }
