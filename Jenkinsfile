@@ -23,7 +23,7 @@ pipeline {
                     sh 'npm install vercel'
                     
                     // Authenticate with Vercel using the token
-                    sh "vercel login --token $VERCEL_TOKEN"
+                    sh "vercel login"
                 }
             }
         }
